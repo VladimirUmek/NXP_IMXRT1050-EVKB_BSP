@@ -1,0 +1,84 @@
+# A project translates into one executable or library.
+project:
+
+ misc:
+   - for-compiler: AC6
+     Link:
+       - '--predefine="-DXIP_BOOT_HEADER_ENABLE=1"'
+       - '--diag_suppress 6314'
+       - '--datacompressor=off'
+   - for-compiler: GCC
+     ASM:
+       - "-D__STARTUP_CLEAR_BSS"
+
+  # List components to use for your application.
+  # A software component is a re-usable unit that may be configurable.
+ components:
+    - component: NXP::Device:Startup
+
+    - component: NXP::Device:CMSIS:MIMXRT1052_header
+    - component: NXP::Device:CMSIS:MIMXRT1052_system
+
+    - component: NXP::Device:SDK Drivers:clock
+    - component: NXP::Device:SDK Drivers:common
+    - component: NXP::Device:SDK Drivers:dmamux
+    - component: NXP::Device:SDK Drivers:edma
+    - component: NXP::Device:SDK Drivers:gpio
+    - component: NXP::Device:SDK Drivers:iomuxc
+    - component: NXP::Device:SDK Drivers:lists
+    - component: NXP::Device:SDK Drivers:lpuart
+    - component: NXP::Device:SDK Drivers:lpuart_adapter
+    - component: NXP::Device:SDK Drivers:lpuart_edma
+    - component: NXP::Device:SDK Drivers:nic301
+    - component: NXP::Device:SDK Drivers:xip_device
+
+    - component: NXP::Device:SDK Project Template:RTE_Device
+
+    - component: NXP::Device:SDK Utilities:MIMXRT1052_linker
+
+    - component: NXP::Device:SDK Utilities:assert
+    - component: NXP::Device:SDK Utilities:debug_console
+    - component: NXP::Device:SDK Utilities:str
+    - component: NXP::Device:SDK Utilities:serial_manager
+    - component: NXP::Device:SDK Utilities:serial_manager_uart
+
+    - component: NXP::Board Support:SDK Drivers:evkbimxrt1050 xip
+    - component: NXP::Board Support:SDK Project Template:project_template&evkbimxrt1050
+
+    - component: ARM::CMSIS:CORE
+
+    - component: ARM::CMSIS Driver:USART:Custom
+    - component: Keil::CMSIS Driver:VIO:Board&IMXRT1050-EVKB
+    - component: NXP::CMSIS Driver:USART:lpuart_cmsis
+
+    - component: ARM::CMSIS-Compiler:CORE
+    - component: ARM::CMSIS-Compiler:STDERR:Custom
+    - component: ARM::CMSIS-Compiler:STDIN:Custom
+    - component: ARM::CMSIS-Compiler:STDOUT:Custom
+
+    - component: ARM::CMSIS:OS Tick:SysTick
+    - component: ARM::CMSIS:RTOS2:Keil RTX5&Source
+
+ groups:
+    - group: App
+      files:
+        - file: Blinky.c
+    - group: Board
+      files:
+        - file: main.h
+        - file: main.c
+        - file: retarget_stdio.c
+    - group: MCUXpresso
+      files:
+        - file: IMXRT1050-EVKB.mex
+    - group: Documentation
+      files:
+        - file: README.md
+
+ linker:
+    - for-compiler: AC6
+      script: RTE/Device/MIMXRT1052DVL6B/MIMXRT1052xxxxx_flexspi_nor.scf
+    - for-compiler: GCC
+      script: RTE/Device/MIMXRT1052DVL6B/MIMXRT1052xxxxx_flexspi_nor.ld
+    - for-compiler: IAR
+      script: RTE/Device/MIMXRT1052DVL6B/MIMXRT1052xxxxx_flexspi_nor.icf
