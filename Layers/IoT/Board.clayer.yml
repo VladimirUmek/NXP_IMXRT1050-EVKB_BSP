@@ -41,7 +41,7 @@ layer:
     - pack: ARM::CMSIS-Compiler@>=2.0.0
 
   define:
-    - CMSIS_board_header: "\"IMXRT1050_EVKB.h\""
+    - CMSIS_target_header: "\"IMXRT1050_EVKB.h\""
     - CMSIS_VOUT
     - FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL: 1
     - SKIP_SYSCLK_INIT

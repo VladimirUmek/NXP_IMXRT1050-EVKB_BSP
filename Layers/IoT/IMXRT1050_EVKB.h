@@ -19,7 +19,13 @@
 #ifndef IMXRT1050_EVKB_H_
 #define IMXRT1050_EVKB_H_
 
-// IMXRT1050-EVKB Arduino Connector Pin Defintions
+// IMXRT1050-EVKB CMSIS Driver instances
+#define CMSIS_DRIVER_ETH        0
+#define CMSIS_DRIVER_MCI        0
+#define CMSIS_DRIVER_USBD       1
+#define CMSIS_DRIVER_USBH       2
+
+// IMXRT1050-EVKB Arduino Connector Pin Definitions
 #define ARDUINO_UNO_D0  GPIO_PORT1(23U) /* GPIO_AD_B1_07 - USART3: RX */
 #define ARDUINO_UNO_D1  GPIO_PORT1(22U) /* GPIO_AD_B1_06 - USART3: TX */
 #define ARDUINO_UNO_D2  GPIO_PORT1(11U) /* GPIO_AD_B0_11 */
